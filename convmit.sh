@@ -9,6 +9,15 @@ perr() {
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
 }
 
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+if ! command_exists gum; then
+  perr "Gum is not installed!"
+  exit 1
+fi
+
 type=$(gum choose --header="Choose Type:" \
   "fix" \
   "feat" \
